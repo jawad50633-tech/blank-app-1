@@ -1,16 +1,27 @@
 
 import streamlit as st
 
+st.title("📊 Student Marks Calculator")
 
-st.header("Welcome to Python Class")
-st.subheader("My first Streamlit project")
+name = st.text_input("Student name")
 
-st.table({
-    "Name": ["Alice", "Bob", "Charlie"],
-    "Age": [25, 30, 35],
-    "marks": [85, 90, 95]
-    })
+maths = st.number_input("Maths marks", 0, 100, 0)
+python = st.number_input("Python marks", 0, 100, 0)
+english = st.number_input("English marks", 0, 100, 0)
 
-st.divider()
+if st.button("Calculate Result"):
+    total = maths + python + english
+    percentage = total / 300 * 100
 
-st.code("print('Hello World')", language="python")
+    st.write("Student:", name)
+    st.metric("Total Marks", f"{total}/300")
+    st.metric("Percentage", f"{percentage:.1f}%")
+
+    if percentage >= 80:
+        st.success("Grade: A")
+    elif percentage >= 60:
+        st.info("Grade: B")
+    elif percentage >= 40:
+        st.warning("Grade: C")
+    else:
+        st.error("Grade: Fail")
